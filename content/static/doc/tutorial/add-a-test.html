@@ -4,35 +4,30 @@
 }-->
 
 <p>
-  Now that you've gotten your code to a stable place (nicely done, by the way),
-  add a test. Testing your code during development can expose bugs that find
-  their way in as you make changes. In this topic, you add a test for the
-  <code>Hello</code> function.
+  现在你已经把代码放在了一个稳定的地方（顺便说一句，做得很好），可以增加一个测试了。
+  在开发的过程中测试代码可以随时发现代码更改造成的bug。
+  在本节你需要为 <code>Hello</code> 函数添加一个测试。
 </p>
 
 <aside class="Note">
-  <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
-  with <a href="create-module.html">Create a Go module</a>.
+  <strong>注意:</strong> 本主题是以 <a href="create-module.html">Create a Go module</a> 为开始的一系列主题的一部分。
 </aside>
 
 <p>
-  Go's built-in support for unit testing makes it easier to test as you go.
-  Specifically, using naming conventions, Go's <code>testing</code> package, and
-  the <code>go test</code> command, you can quickly write and execute tests.
+  Go对单元测试的内置支持使测试更容易进行。尤其是使用命名约定、Go的 <code>testing</code> 包以及 <code>go test</code> 命令，你可以快速编写和执行测试。
 </p>
 
 <ol>
   <li>
-    In the greetings directory, create a file called greetings_test.go.
+    在greetings目录, 创建greetings_test.go文件。
 
     <p>
-      Ending a file's name with _test.go tells the <code>go test</code> command
-      that this file contains test functions.
+      以 _test.go 结尾命名文件，告诉 <code>go test</code> 命令这个文件包含了测试函数。
     </p>
   </li>
 
   <li>
-    In greetings_test.go, paste the following code and save the file.
+    在 greetings_test.go 中，粘贴以下代码并保存文件。
 
     <pre>
 package greetings
@@ -65,47 +60,33 @@ func TestHelloEmpty(t *testing.T) {
     >
 
     <p>
-      If this code, you:
+      在以上代码中，你：
     </p>
 
     <ul>
       <li>
-        Implement test functions in the same package as the code you're testing.
+        在被测试代码的相同的包中，实现了测试函数。
       </li>
       <li>
-        Create two test functions to test the
-        <code>greetings.Hello</code> function. Test function names have the form
-        <code>Test<em>Name</em></code
-        >, where <em>Name</em> is specific to the test. Also, test functions
-        take a pointer to the
-        <a href="https://golang.org/pkg/testing/"
-          ><code>testing</code> package's</a
-        >
-        <code>testing.T</code> as a parameter. You use this parameter's methods
-        for reporting and logging from your test.
+        为 <code>greetings.Hello</code> 函数创建了两个测试函数。测试函数名的格式是 <code>Test<em>Name</em></code> ，
+        其中 <em>Name</em> 是针对当前测试的。测试函数也包含了一个指向 <a href="https://golang.org/pkg/testing/"> <code>testing</code> 包</a>
+        的指针参数。你可以在测试中使用这个参数的方法进行报告和记录。
       </li>
       <li>
-        Implement two tests:
+        实现两个测试：
 
         <ul>
           <li>
-            <code>TestHelloName</code> calls the <code>Hello</code> function,
-            passing a <code>name</code> value with which the function should be
-            able to return a valid response message. If the call returns an
-            error or an unexpected response message (one that doesn't include
-            the name you passed in), you use the <code>t</code> parameter's
-            <code>Fatalf</code> method to print a message to the console and end
-            execution.
+            <code>TestHelloName</code> 调用 <code>Hello</code> 函数,
+            传递了一个 <code>name</code> 值，这种情况该函数应该可以返回一个有效的响应消息。
+            如果这个调用返回了一个 error 或者非预期的响应消息（没有包含你传递进去的 name）, 
+            那么 <code>t</code> 参数的 <code>Fatalf</code> 方法向控制台打印消息并结束执行。
           </li>
           <li>
-            <code>TestHelloEmpty</code> calls the <code>Hello</code> function
-            with an empty string. This test is designed to confirm that your
-            error handling works. If the call returns a non-empty string or no
-            error, you use the <code>t</code> parameter's
-            <a href="https://golang.org/pkg/testing/#T.Fatalf"
-              ><code>Fatalf</code> method</a
-            >
-            to print a message to the console and end execution.
+            <code>TestHelloEmpty</code> 使用空字符串调用 <code>Hello</code> 函数。
+            这个测试用于验证你的错误处理能够正常工作。如果返回了一个非空的字符串或者一个 error，
+            那么 <code>t</code> 参数的 <a href="https://golang.org/pkg/testing/#T.Fatalf"><code>Fatalf</code> 方法</a>
+            向控制台打印消息并结束执行。
           </li>
         </ul>
       </li>
@@ -113,21 +94,16 @@ func TestHelloEmpty(t *testing.T) {
   </li>
 
   <li>
-    At the command line in the greetings directory, run the
-    <a href="https://golang.org/cmd/go/#hdr-Test_packages"
-      ><code>go test</code> command</a
-    >
-    to execute the test.
+    在 greetings 目录打开命令行，运行 <a href="https://golang.org/cmd/go/#hdr-Test_packages"><code>go test</code> 命令</a>
+    执行测试。
 
     <p>
-      The <code>go test</code> command executes test functions (whose names
-      begin with <code>Test</code>) in test files (whose names end with
-      _test.go). You can add the <code>-v</code> flag to get verbose output that
-      lists all of the tests and their results.
+      <code>go test</code> 命令执行测试文件（以 _test.go结尾的文件）中的测试函数（名字以 <code>Test</code> 开头的函数）。
+      你可以添加 <code>-v</code> 标志，输出包含所有测试及对应结果的详细信息。
     </p>
 
     <p>
-      The tests should pass.
+      测试应该能够通过。
     </p>
 
     <pre>
@@ -147,20 +123,16 @@ ok      example.com/greetings   0.372s
   </li>
 
   <li>
-    Break the <code>greetings.Hello</code> function to view a failing test.
+    破坏 <code>greetings.Hello</code> 函数来看一个失败的测试。
 
     <p>
-      The <code>TestHelloName</code> test function checks the return value for
-      the name you specified as a <code>Hello</code> function parameter. To view
-      a failing test result, change the <code>greetings.Hello</code> function so
-      that it no longer includes the name.
+      <code>TestHelloName</code> 测试函数根据你给出的 <code>Hello</code> 函数的参数 name，检查对应的返回值。
+      为了看到一个失败的测试结果，修改 <code>greetings.Hello</code> 函数，让它不再包含 name。
     </p>
 
     <p>
-      In greetings/greetings.go, paste the following code in place of the
-      <code>Hello</code> function. Note that the highlighted lines change the
-      value that the function returns, as if the <code>name</code> argument had
-      been accidentally removed.
+      在 greetings/greetings.go中，粘贴以下代码，替换 <code>Hello</code> 函数。
+      注意高亮的两行修改了函数的返回值，如同 <code>name</code> 参数被意外删除了一样。
     </p>
 
     <pre>
@@ -179,14 +151,12 @@ func Hello(name string) (string, error) {
   </li>
 
   <li>
-    At the command line in the greetings directory, run <code>go test</code> to
-    execute the test.
+    在 greetings 目录打开命令行，运行 <code>go test</code> 执行测试。
 
     <p>
-      This time, run <code>go test</code> without the <code>-v</code> flag. The
-      output will include results for only the tests that failed, which can be
-      useful when you have a lot of tests. The <code>TestHelloName</code> test
-      should fail -- <code>TestHelloEmpty</code> still passes.
+      这一次，不添加 <code>-v</code> 标志，运行 <code>go test</code> 。
+      输出只会包含测试失败的结果，如果有很多测试的话，这样会很有用。
+      <code>TestHelloName</code> 测试应该会失败， 但<code>TestHelloEmpty</code> 仍然可以通过。
     </p>
 
     <pre>
@@ -202,16 +172,15 @@ FAIL    example.com/greetings   0.182s
 </ol>
 
 <p>
-  This topic introduced Go's built-in support for unit testing. In the
-  tutorial's <a href="compile-install.html">next topic</a>, you'll see how to
-  compile and install your code to run it locally.
+  本节介绍了 Go 对单元测试的内置支持。
+  在 <a href="compile-install.html">下一主题</a> 教程中，你将了解如何编译和安装代码，以便在本地运行。
 </p>
 
 <p class="Navigation">
   <a class="Navigation-prev" href="greetings-multiple-people.html"
-    >&lt; Return greetings for multiple people</a
+    >&lt; 为多个人返回问候语 </a
   >
   <a class="Navigation-next" href="compile-install.html"
-    >Compile and install the application &gt;</a
+    >编译和安装应用 &gt;</a
   >
 </p>
